@@ -13,45 +13,50 @@ void main()
   pid_t pid_devuelto3;
   pid_t pid_devuelto4;
   pid_t pid_devuelto5;
+
   pid_devuelto=fork();
+  
   if(pid_devuelto==0){
+    sleep(10);
     printf("Soy el proceso %d \n",getpid());
   }else{
     pid_devuelto1=fork();
     if(pid_devuelto1==0){
+      sleep(10);
       printf("Soy el proceso %d \n",getpid());
     }else{
       pid_devuelto2=fork();
       if(pid_devuelto2==0){
+        sleep(10);
         printf("Soy el proceso %d \n",getpid());
       }else{
-        printf("En proceso");
-
+        waitpid(pid_devuelto,NULL,0);
+        waitpid(pid_devuelto1,NULL,0);
+        waitpid(pid_devuelto2,NULL,0);
+        printf("En proceso por proceso %d \n",getpid());
         pid_devuelto3=fork();
         if(pid_devuelto3==0){
-          printf("Soy el proceso %d \n",getpid());
+          sleep(10);
+          printf("Soy el proceso %d \n",getpid());//usar \n 
         }else{
           pid_devuelto4=fork();
           if(pid_devuelto4==0){
+            sleep(10);
             printf("Soy el proceso %d \n",getpid());
           }else{
             pid_devuelto5=fork();
             if(pid_devuelto5==0){
+              sleep(10);
               printf("Soy el proceso %d \n",getpid());
             }else{
               waitpid(pid_devuelto3,NULL,0);
               waitpid(pid_devuelto4,NULL,0);
               waitpid(pid_devuelto5,NULL,0);
-              printf("Fin.");
+              printf("FIn.\n");
             }
           }
         }
       }
     }
-    waitpid(pid_devuelto,NULL,0);
-    waitpid(pid_devuelto1,NULL,0);
-    waitpid(pid_devuelto2,NULL,0);
-  
   }
-
 }
