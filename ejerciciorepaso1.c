@@ -35,14 +35,21 @@ void opciones(int opc){
   }
 }
 void loop(){
-
+  pid_t pid_1=0;
   int opc=0;
   int loop=1;
+  int cont=0;
   do{
-    printf("Ingrese 0 si quiere finalizar el proceso principal, 1 para indicar la memoria utilizada, 2 para hacer un ping y 3 para para informar espacio de disco\n");
+printf("Ingrese 0 si quiere finalizar el proceso principal, 1 para indicar la memoria utilizada, 2 para hacer un ping y 3 para para informar espacio de disco\n");
+      scanf("%d",&opc);
 
-    scanf("%d",&opc);
-    opciones(opc);
+    pid_1=fork();
+    if(pid_1 > 0){
+      continue; 
+    }else if(pid_1==0){
+         opciones(opc);
+      exit(0);
+    }    
   }while(loop==1);
 
 }
